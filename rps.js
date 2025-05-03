@@ -39,35 +39,48 @@ let computerScore = 0;
 function roundLogic(humanChoice,computerChoice) {
     if (humanChoice === computerChoice) {
         console.log(`${humanChoice} ties with ${computerChoice}`)
+        alert(`${humanChoice} ties with ${computerChoice}`)
     }
 
     else if (humanChoice === "Rock" && computerChoice === "Scissors") {
         console.log(`${humanChoice} beats ${computerChoice}`);
+        alert(`${humanChoice} beats ${computerChoice}`);
         humanScore++;
     }
 
     else if (humanChoice === "Rock" && computerChoice === "Paper") {
         console.log(`${computerChoice} beats ${humanChoice}`);
+        alert(`${computerChoice} beats ${humanChoice}`);
         computerScore++;
     }
 
     else if (humanChoice === "Paper" && computerChoice === "Rock") {
         console.log(`${humanChoice} beats ${computerChoice}`);
+        alert(`${humanChoice} beats ${computerChoice}`);
         humanScore++;
     }
 
     else if (humanChoice === "Paper" && computerChoice === "Scissors") {
         console.log(`${computerChoice} beats ${humanChoice}`);
+        alert(`${computerChoice} beats ${humanChoice}`);
         computerScore++;
     }
 
     else if (humanChoice === "Scissors" && computerChoice === "Paper") {
         console.log(`${humanChoice} beats ${computerChoice}`);
+        alert(`${humanChoice} beats ${computerChoice}`);
         humanScore++;
     }
 
     else if (humanChoice === "Scissors" && computerChoice === "Rock") {
         console.log(`${computerChoice} beats ${humanChoice}`);
+        alert(`${computerChoice} beats ${humanChoice}`);
         computerScore++;
     }
 }
+
+for (let i = 1; i < 6; i++) {
+    roundLogic(getHumanChoice(),getComputerChoice(getRandomNumber(1,4)))
+}
+console.log(`Your Score: ${humanScore}`);
+console.log(`Computer Score: ${computerScore}`);
