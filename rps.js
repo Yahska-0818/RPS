@@ -33,4 +33,41 @@ function getHumanChoice() {
     }
 }
 
-console.log(getHumanChoice());
+let humanScore = 0;
+let computerScore = 0;
+
+function roundLogic(humanChoice,computerChoice) {
+    if (humanChoice === computerChoice) {
+        console.log(`${humanChoice} ties with ${computerChoice}`)
+    }
+
+    else if (humanChoice === "Rock" && computerChoice === "Scissors") {
+        console.log(`${humanChoice} beats ${computerChoice}`);
+        humanScore++;
+    }
+
+    else if (humanChoice === "Rock" && computerChoice === "Paper") {
+        console.log(`${computerChoice} beats ${humanChoice}`);
+        computerScore++;
+    }
+
+    else if (humanChoice === "Paper" && computerChoice === "Rock") {
+        console.log(`${humanChoice} beats ${computerChoice}`);
+        humanScore++;
+    }
+
+    else if (humanChoice === "Paper" && computerChoice === "Scissors") {
+        console.log(`${computerChoice} beats ${humanChoice}`);
+        computerScore++;
+    }
+
+    else if (humanChoice === "Scissors" && computerChoice === "Paper") {
+        console.log(`${humanChoice} beats ${computerChoice}`);
+        humanScore++;
+    }
+
+    else if (humanChoice === "Scissors" && computerChoice === "Rock") {
+        console.log(`${computerChoice} beats ${humanChoice}`);
+        computerScore++;
+    }
+}
