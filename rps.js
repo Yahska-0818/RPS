@@ -36,8 +36,6 @@ let scoreOne = 0
 let scoreTwo = 0
 
 // Choices
-let userChoice = ""
-let compChoice = ""
 
 
 startButton.addEventListener("click", ()=> {
@@ -115,23 +113,26 @@ startButton.addEventListener("click", ()=> {
     messageText.style.fontSize = "3vh"
     startMain.appendChild(messageDiv)
 
+    startGame()
+
 })
 
-
-
 function getUserChoice() {
-    return new Promise((resolve,reject)=> {
-        rockButton.addEventListener("click",() => {
-            resolve("rock")
-        })
-    
-        paperButton.addEventListener("click",() => {
-            resolve("paper")
-        })
-    
-        scissorButton.addEventListener("click",() => {
-            resolve("scissors")
-        })
+    return new Promise((resolve) => {
+        function handleClick(choice) {
+            rockButton.removeEventListener("click", onRock)
+            paperButton.removeEventListener("click", onPaper)
+            scissorButton.removeEventListener("click", onScissors)
+            resolve(choice)
+        }
+
+        const onRock = () => handleClick("rock")
+        const onPaper = () => handleClick("paper")
+        const onScissors = () => handleClick("scissors")
+
+        rockButton.addEventListener("click", onRock)
+        paperButton.addEventListener("click", onPaper)
+        scissorButton.addEventListener("click", onScissors)
     })
 }
 
@@ -140,8 +141,6 @@ function getRandomNumber(min, max) {
     const maxFloored = Math.floor(max);
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled)
 }
-
-let randomNum = getRandomNumber(1,4)
 
 function getComputerChoice(number) {
     return new Promise((resolve,reject)=>{
@@ -173,7 +172,7 @@ function roundLogic(humanChoice,computerChoice) {
     }
 
     else if (humanChoice === "rock" && computerChoice === "paper") {
-        messageText.textContent = `${compChoice} beats ${humanChoice}`
+        messageText.textContent = `${computerChoice} beats ${humanChoice}`
         scoreTwo++
         userScore.textContent = `Your score: ${scoreOne}`
         compScore.textContent = `Your score: ${scoreTwo}`
@@ -187,7 +186,7 @@ function roundLogic(humanChoice,computerChoice) {
     }
 
     else if (humanChoice === "paper" && computerChoice === "scissors") {
-        messageText.textContent = `${compChoice} beats ${humanChoice}`
+        messageText.textContent = `${computerChoice} beats ${humanChoice}`
         scoreTwo++
         userScore.textContent = `Your score: ${scoreOne}`
         compScore.textContent = `Your score: ${scoreTwo}`
@@ -202,14 +201,33 @@ function roundLogic(humanChoice,computerChoice) {
     }
 
     else if (humanChoice === "scissors" && computerChoice === "rock") {
-        messageText.textContent = `${compChoice} beats ${humanChoice}`
+        messageText.textContent = `${computerChoice} beats ${humanChoice}`
         scoreTwo++
         userScore.textContent = `Your score: ${scoreOne}`
         compScore.textContent = `Your score: ${scoreTwo}`
     }
 }
 
-getUserChoice().then(value=>{userImg.src=`imgs/${value}.png`; userChoice=value;return getComputerChoice(randomNum)})
-                .then(value=>{compImg.src=`imgs/${value}.png`; compChoice = value; roundLogic(userChoice,compChoice)})
+async function startGame() {
+    for (let i = 0; i < 5; i++) {
+        const userChoice = await getUserChoice()
+        userImg.src = `imgs/${userChoice}.png`
 
-rounds = 0
+        const randomNum = getRandomNumber(1, 4)
+        const compChoice = await getComputerChoice(randomNum)
+        compImg.src = `imgs/${compChoice}.png`
+
+        roundLogic(userChoice, compChoice)
+    }
+    if (scoreOne>scoreTwo) {
+        messageText.textContent = "Game over. You win!"
+    }
+
+    else if (scoreTwo > scoreOne) {
+        messageText.textContent = "Game over. Computer wins!"
+    }
+
+    else {
+        messageText.textContent = "Game over. Draw"
+    }
+}
