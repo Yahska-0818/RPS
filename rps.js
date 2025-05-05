@@ -21,16 +21,20 @@ const scissorButton = document.createElement("button")
 
 const userCont = document.createElement("div")
 const userText = document.createElement("p")
-const imgOne = document.createElement("img")
+const userImg = document.createElement("img")
 const compCont = document.createElement("div")
 const compText = document.createElement("p")
-const imgTwo = document.createElement("img")
+const compImg = document.createElement("img")
 const userScore = document.createElement("p")
 const compScore = document.createElement("p")
 
 // keeping score
 let scoreOne = 0
 let scoreTwo = 0
+
+// Choices
+let userChoice = ""
+let compChoice = ""
 
 
 startButton.addEventListener("click", ()=> {
@@ -68,12 +72,12 @@ startButton.addEventListener("click", ()=> {
     userText.style.fontSize = "2vh"
     compText.style.fontSize = "2vh"
 
-    imgOne.style.cssText = "height: 25vh; width: 25vh;"
-    imgTwo.style.cssText = "height: 25vh; width: 25vh;"
-    imgOne.style.borderRadius = "1vh"
-    imgTwo.style.borderRadius = "1vh"
-    imgOne.style.border = "5px solid #540B05"
-    imgTwo.style.border = "5px solid #540B05"
+    userImg.style.cssText = "height: 25vh; width: 25vh;"
+    compImg.style.cssText = "height: 25vh; width: 25vh;"
+    userImg.style.borderRadius = "1vh"
+    compImg.style.borderRadius = "1vh"
+    userImg.style.border = "5px solid #540B05"
+    compImg.style.border = "5px solid #540B05"
 
     userScore.textContent = `Your score: ${scoreOne}`
     compScore.textContent = `Your score: ${scoreTwo}`
@@ -83,10 +87,10 @@ startButton.addEventListener("click", ()=> {
     compScore.style.fontSize = "2vh"
 
     userCont.appendChild(userText)
-    userCont.appendChild(imgOne)
+    userCont.appendChild(userImg)
     userCont.appendChild(userScore)
     compCont.appendChild(compText)
-    compCont.appendChild(imgTwo)
+    compCont.appendChild(compImg)
     compCont.appendChild(compScore)
 
     userCont.style.cssText = "display: flex; gap: 1vh"
@@ -104,5 +108,42 @@ startButton.addEventListener("click", ()=> {
 
 })
 
-imgOne.src = "imgs/paper.png"
-imgTwo.src = "imgs/rock.png"
+function getUserChoice() {
+    rockButton.addEventListener("click",() => {
+        userImg.src = "imgs/rock.png"
+        return "rock"
+    })
+
+    paperButton.addEventListener("click",() => {
+        userImg.src = "imgs/paper.png"
+        return "paper"
+    })
+
+    scissorButton.addEventListener("click",() => {
+        userImg.src = "imgs/scissors.png"
+        return "scissors"
+    })
+}
+
+function getRandomNumber(min, max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled)
+}
+
+function getComputerChoice(number) {
+    if (number === 1) {
+        compImg.src = "imgs/rock.png"
+        return "rock"
+    }
+
+    else if (number === 2) {
+        compImg.src = "imgs/paper.png"
+        return "paper"
+    }
+
+    else if (number === 3) {
+        compImg.src = "imgs/scissors.png"
+        return "scissors"
+    }
+}
