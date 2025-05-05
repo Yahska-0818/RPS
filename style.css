@@ -19,7 +19,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 5vh;
+    gap: 2vh;
 }
 
 .main h1 {

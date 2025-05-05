@@ -8,6 +8,7 @@ const footer = document.querySelector(".footer")
 const textDiv = document.createElement("div")
 const buttonDiv = document.createElement("div")
 const actionDiv = document.createElement("div")
+const messageDiv = document.createElement("div")
 
 // adding content to new ui
 const textH1 = document.createElement("h1")
@@ -27,6 +28,8 @@ const compText = document.createElement("p")
 const compImg = document.createElement("img")
 const userScore = document.createElement("p")
 const compScore = document.createElement("p")
+const messageText = document.createElement("p")
+
 
 // keeping score
 let scoreOne = 0
@@ -106,7 +109,15 @@ startButton.addEventListener("click", ()=> {
 
     startMain.appendChild(actionDiv)
 
+    messageDiv.appendChild(messageText)
+    messageDiv.style.cssText = "display:flex; justifyContent: center"
+    messageText.style.cssText = "margin: 0; color: white;"
+    messageText.style.fontSize = "3vh"
+    startMain.appendChild(messageDiv)
+
 })
+
+
 
 function getUserChoice() {
     return new Promise((resolve,reject)=> {
@@ -148,7 +159,57 @@ function getComputerChoice(number) {
     })
 }
 
-getUserChoice().then(value=>{userImg.src=`imgs/${value}.png`; userChoice=value; return getComputerChoice(randomNum)})
-                .then(value=>compImg.src=`imgs/${value}.png`)
+function roundLogic(humanChoice,computerChoice) {
+    if (humanChoice === computerChoice) {
+        messageText.textContent = `${humanChoice} ties with ${computerChoice}`
+        userScore.textContent = `Your score: ${scoreOne}`
+        compScore.textContent = `Your score: ${scoreTwo}`
+    }
+    else if (humanChoice === "rock" && computerChoice === "scissors") {
+        messageText.textContent = `${humanChoice} beats ${computerChoice}`
+        scoreOne++
+        userScore.textContent = `Your score: ${scoreOne}`
+        compScore.textContent = `Your score: ${scoreTwo}`
+    }
 
-//change code by making 2 diff functions for adding images and getting choice
+    else if (humanChoice === "rock" && computerChoice === "paper") {
+        messageText.textContent = `${compChoice} beats ${humanChoice}`
+        scoreTwo++
+        userScore.textContent = `Your score: ${scoreOne}`
+        compScore.textContent = `Your score: ${scoreTwo}`
+    }
+
+    else if (humanChoice === "paper" && computerChoice === "rock") {
+        messageText.textContent = `${humanChoice} beats ${computerChoice}`
+        scoreOne++
+        userScore.textContent = `Your score: ${scoreOne}`
+        compScore.textContent = `Your score: ${scoreTwo}`
+    }
+
+    else if (humanChoice === "paper" && computerChoice === "scissors") {
+        messageText.textContent = `${compChoice} beats ${humanChoice}`
+        scoreTwo++
+        userScore.textContent = `Your score: ${scoreOne}`
+        compScore.textContent = `Your score: ${scoreTwo}`
+        
+    }
+
+    else if (humanChoice === "scissors" && computerChoice === "paper") {
+        messageText.textContent = `${humanChoice} beats ${computerChoice}`
+        scoreOne++
+        userScore.textContent = `Your score: ${scoreOne}`
+        compScore.textContent = `Your score: ${scoreTwo}`
+    }
+
+    else if (humanChoice === "scissors" && computerChoice === "rock") {
+        messageText.textContent = `${compChoice} beats ${humanChoice}`
+        scoreTwo++
+        userScore.textContent = `Your score: ${scoreOne}`
+        compScore.textContent = `Your score: ${scoreTwo}`
+    }
+}
+
+getUserChoice().then(value=>{userImg.src=`imgs/${value}.png`; userChoice=value;return getComputerChoice(randomNum)})
+                .then(value=>{compImg.src=`imgs/${value}.png`; compChoice = value; roundLogic(userChoice,compChoice)})
+
+rounds = 0
