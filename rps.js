@@ -1,4 +1,13 @@
-function getRandomNumber(min, max) {
+const startButton = document.getElementById("start")
+const startH1 = document.getElementById("welcome")
+const startMain = document.querySelector(".main")
+
+startButton.addEventListener("click", ()=> {
+    startMain.removeChild(startButton)
+    startMain.removeChild(startH1)
+})
+
+/* function getRandomNumber(min, max) {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled)
@@ -77,10 +86,4 @@ function roundLogic(humanChoice,computerChoice) {
         alert(`${computerChoice} beats ${humanChoice}`);
         computerScore++;
     }
-}
-
-for (let i = 1; i < 6; i++) {
-    roundLogic(getHumanChoice(),getComputerChoice(getRandomNumber(1,4)))
-}
-console.log(`Your Score: ${humanScore}`);
-console.log(`Computer Score: ${computerScore}`);
+} */

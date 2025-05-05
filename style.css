@@ -1,8 +1,39 @@
 body {
+    font-family: Roboto, sans-serif;
+    background-image: url(imgs/bg-img.jpg);
+    background-repeat: no-repeat;
+    font-family: "Winky Rough", sans-serif;
+    font-optical-sizing: auto;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.header, .footer {
+    height: 10vh;
+}
+
+.main {
+    flex: 1;
+    display: flex;
     align-items: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    background-color: black;
+    flex-direction: column;
+}
+
+.main h1 {
     color: white;
+    font-size: 5vh;
+}
+
+.main button {
+    width: 15vh;
+    height: 5vh;
+    font-family: "Winky Rough", sans-serif;
+    border-radius: 1vh;
+    padding: 0;
+    font-size: 3vh;
+    color: #540B05;
+    cursor: pointer;
+    border-color: #540B05;
 }
