@@ -109,19 +109,18 @@ startButton.addEventListener("click", ()=> {
 })
 
 function getUserChoice() {
-    rockButton.addEventListener("click",() => {
-        userImg.src = "imgs/rock.png"
-        return "rock"
-    })
-
-    paperButton.addEventListener("click",() => {
-        userImg.src = "imgs/paper.png"
-        return "paper"
-    })
-
-    scissorButton.addEventListener("click",() => {
-        userImg.src = "imgs/scissors.png"
-        return "scissors"
+    return new Promise((resolve,reject)=> {
+        rockButton.addEventListener("click",() => {
+            resolve("rock")
+        })
+    
+        paperButton.addEventListener("click",() => {
+            resolve("paper")
+        })
+    
+        scissorButton.addEventListener("click",() => {
+            resolve("scissors")
+        })
     })
 }
 
@@ -131,19 +130,25 @@ function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled)
 }
 
+let randomNum = getRandomNumber(1,4)
+
 function getComputerChoice(number) {
-    if (number === 1) {
-        compImg.src = "imgs/rock.png"
-        return "rock"
-    }
-
-    else if (number === 2) {
-        compImg.src = "imgs/paper.png"
-        return "paper"
-    }
-
-    else if (number === 3) {
-        compImg.src = "imgs/scissors.png"
-        return "scissors"
-    }
+    return new Promise((resolve,reject)=>{
+        if (number === 1) {
+            resolve("rock")
+        }
+    
+        else if (number === 2) {
+            resolve("paper")
+        }
+    
+        else if (number === 3) {
+            resolve("scissors")
+        }
+    })
 }
+
+getUserChoice().then(value=>{userImg.src=`imgs/${value}.png`; userChoice=value; return getComputerChoice(randomNum)})
+                .then(value=>compImg.src=`imgs/${value}.png`)
+
+//change code by making 2 diff functions for adding images and getting choice
